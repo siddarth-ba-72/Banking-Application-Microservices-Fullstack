@@ -28,4 +28,12 @@ public class AdminServiceImplementation implements AdminService {
             users.add(authenticationService.buildCustomerResponseBody(c));
         return users;
     }
+
+    @Override
+    public CustomerDetailsBody deleteUser(int customerId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        CustomerDetailsBody toDeleteCustomer = authenticationService.buildCustomerResponseBody(customer);
+        customerRepository.deleteById(customerId);
+        return toDeleteCustomer;
+    }
 }

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AdminService {
     List<CustomerDetailsBody> getAllUsers();
+    CustomerDetailsBody deleteUser(int customerId);
 }

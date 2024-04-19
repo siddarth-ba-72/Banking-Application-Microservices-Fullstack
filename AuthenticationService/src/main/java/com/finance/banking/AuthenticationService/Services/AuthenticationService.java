@@ -8,8 +8,10 @@ public interface AuthenticationService {
     CustomerDetailsBody registerCustomer(CustomerRequestBody customer);
     CustomerDetailsBody buildCustomerResponseBody(Customer customer);
     Customer loadUserByPhoneNumber(String phoneNumber);
+    boolean isCustomerIdExists(int customerId);
     boolean isCustomerPhoneNumberExists(String phoneNumber);
     boolean isCustomerAccountNumberExists(String accountNumber);
     boolean isCustomerIfscCodeExists(String ifscCode);
     CustomerDetailsBody getUserDetails();
+    CustomerDetailsBody getUserByCustomerId(int customerId);
 }

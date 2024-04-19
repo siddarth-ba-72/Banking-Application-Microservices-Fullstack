@@ -34,4 +34,13 @@ public class AuthenticationExceptionHandlers {
                 .build();
         return new ResponseEntity<>(errorResponse, e.getErrorStatus());
     }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<AuthErrorResponse> handleCustomerNotFoundException(CustomerNotFoundException e) {
+        AuthErrorResponse errorResponse = AuthErrorResponse.builder()
+                .errorMessage(e.getMessage())
+                .status(e.getErrorStatus())
+                .build();
+        return new ResponseEntity<>(errorResponse, e.getErrorStatus());
+    }
 }

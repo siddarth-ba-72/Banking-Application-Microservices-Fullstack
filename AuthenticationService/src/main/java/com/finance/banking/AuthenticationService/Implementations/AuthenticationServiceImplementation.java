@@ -45,6 +45,11 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     }
 
     @Override
+    public boolean isCustomerIdExists(int customerId) {
+        return customerRepository.existsById(customerId);
+    }
+
+    @Override
     public CustomerDetailsBody buildCustomerResponseBody(Customer customer) {
         return CustomerDetailsBody.builder()
                 .customerId(customer.getCustomerId())
@@ -82,6 +87,14 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     public CustomerDetailsBody getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = (Customer) authentication.getPrincipal();
+        return buildCustomerResponseBody(customer);
+    }
+
+    @Override
+    public CustomerDetailsBody getUserByCustomerId(int customerId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        if(customer == null)
+            return null;
         return buildCustomerResponseBody(customer);
     }
 }
