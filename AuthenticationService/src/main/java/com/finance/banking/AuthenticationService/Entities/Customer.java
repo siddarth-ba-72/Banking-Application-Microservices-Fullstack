@@ -28,6 +28,7 @@ public class Customer implements UserDetails {
     private String password;
     private String accountNumber;
     private String ifscCode;
+    private String address;
     private Double balanceAmount;
     private CustomerRole role;
 

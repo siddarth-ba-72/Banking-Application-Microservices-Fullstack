@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/fin/auth")
@@ -28,7 +25,7 @@ public class AuthenticationController {
     private JwtHelper helper;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponseBody> registerCustomer(@RequestBody CustomerRequestBody request) {
+    public ResponseEntity<CustomerResponseBody> registerCustomer(@RequestBody CustomerRequestBody request) {
         if(request.getPhoneNumber().length() != 10)
             throw new InValidSignUpDetailsException("Phone number must have 10 digits", HttpStatus.BAD_REQUEST);
         if(authenticationService.isCustomerPhoneNumberExists(request.getPhoneNumber()))
@@ -40,12 +37,12 @@ public class AuthenticationController {
         if(request.getPassword().length() < 8)
             throw new InValidSignUpDetailsException("Password must be atleast 8 characters", HttpStatus.INTERNAL_SERVER_ERROR);
         CustomerDetailsBody customerDetails = authenticationService.registerCustomer(request);
-        RegisterResponseBody responseBody = RegisterResponseBody.builder()
+        CustomerResponseBody responseBody = CustomerResponseBody.builder()
                 .message("Customer Registered Successfully")
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .customer(customerDetails)
                 .build();
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

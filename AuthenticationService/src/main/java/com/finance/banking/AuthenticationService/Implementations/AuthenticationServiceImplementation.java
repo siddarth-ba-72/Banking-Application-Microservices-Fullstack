@@ -7,6 +7,8 @@ import com.finance.banking.AuthenticationService.ReqResBodies.CustomerRequestBod
 import com.finance.banking.AuthenticationService.ReqResBodies.CustomerDetailsBody;
 import com.finance.banking.AuthenticationService.Services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +31,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .accountNumber(customer.getAccountNumber())
                 .ifscCode(customer.getIfscCode())
+                .address(customer.getAddress())
                 .balanceAmount(0.0)
                 .role(CustomerRole.USER)
                 .build();
@@ -44,10 +47,12 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     @Override
     public CustomerDetailsBody buildCustomerResponseBody(Customer customer) {
         return CustomerDetailsBody.builder()
+                .customerId(customer.getCustomerId())
                 .name(customer.getName())
                 .phoneNumber(customer.getPhoneNumber())
                 .accountNumber(customer.getAccountNumber())
                 .ifscCode(customer.getIfscCode())
+                .address(customer.getAddress())
                 .balanceAmount(customer.getBalanceAmount())
                 .role(customer.getRole())
                 .build();
@@ -71,5 +76,12 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     @Override
     public boolean isCustomerIfscCodeExists(String ifscCode) {
         return customerRepository.findByIfscCode(ifscCode).isPresent();
+    }
+
+    @Override
+    public CustomerDetailsBody getUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = (Customer) authentication.getPrincipal();
+        return buildCustomerResponseBody(customer);
     }
 }

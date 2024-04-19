@@ -11,4 +11,5 @@ public interface AuthenticationService {
     boolean isCustomerPhoneNumberExists(String phoneNumber);
     boolean isCustomerAccountNumberExists(String accountNumber);
     boolean isCustomerIfscCodeExists(String ifscCode);
+    CustomerDetailsBody getUserDetails();
 }

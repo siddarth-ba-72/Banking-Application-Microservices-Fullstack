@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterResponseBody {
+public class CustomerResponseBody {
     private String message;
     private final boolean success = true;
     private HttpStatus status;

@@ -4,9 +4,12 @@ import com.finance.banking.AuthenticationService.Entities.Customer;
 import com.finance.banking.AuthenticationService.Entities.CustomerRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+
+    List<Customer> findAllByRole(CustomerRole user);
 
     Optional<Customer> findByName(String name);
 

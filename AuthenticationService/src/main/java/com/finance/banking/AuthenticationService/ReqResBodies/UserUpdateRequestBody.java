@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerRequestBody {
+public class UserUpdateRequestBody {
     private String name;
     private String phoneNumber;
-    private String password;
     private String accountNumber;
     private String ifscCode;
     private String address;

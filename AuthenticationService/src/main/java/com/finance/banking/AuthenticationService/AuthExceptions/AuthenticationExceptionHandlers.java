@@ -25,4 +25,13 @@ public class AuthenticationExceptionHandlers {
                 .build();
         return new ResponseEntity<>(errorResponse, e.getErrorStatus());
     }
+
+    @ExceptionHandler(UnAuthorizedAccessException.class)
+    public ResponseEntity<AuthErrorResponse> handleUnAuthorizedAccessException(UnAuthorizedAccessException e) {
+        AuthErrorResponse errorResponse = AuthErrorResponse.builder()
+                .errorMessage(e.getMessage())
+                .status(e.getErrorStatus())
+                .build();
+        return new ResponseEntity<>(errorResponse, e.getErrorStatus());
+    }
 }
