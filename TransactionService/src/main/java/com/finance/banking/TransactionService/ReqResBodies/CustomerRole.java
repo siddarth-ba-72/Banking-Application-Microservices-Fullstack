@@ -1,4 +1,4 @@
-package com.finance.banking.AuthenticationService.Entities;
+package com.finance.banking.TransactionService.ReqResBodies;
 
 import lombok.Getter;
 

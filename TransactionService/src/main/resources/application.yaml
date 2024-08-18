@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: TransactionService
+  datasource:
+    url: jdbc:mysql://localhost:3306/banking_db
+    username: root
+    password: Msqlrp7236$#
+    jpa:
+      hibernate:
+        ddl-auto: create-drop
+      show-sql: true
+    initialize: false
+
+  logging:
+    level:
+      com:
+        wissen:
+          customer: DEBUG
+
+  server:
+    port: 8082
+
+  eureka:
+    instance:
+      prefer-ip-address: true
+    client:
+      fetch-registry: true
+      register-with-eureka: true
+      service-url:
+        defaultZone: http://localhost:8761/eureka

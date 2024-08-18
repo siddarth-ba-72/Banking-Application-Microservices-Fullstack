@@ -18,7 +18,13 @@ spring:
         - id: AUTHENTICATIONSERVICE
           uri: lb://AUTHENTICATIONSERVICE
           predicates:
-            - Path=/fin/auth/**,/fin/users/**,/fin/admin/**
+            - Path=/fin/auth/**,/fin/users/**,/fin/admin/**,/fin/ext/**
+          filters:
+            - AuthenticationFilter
+        - id: TRANSACTIONSERVICE
+          uri: lb://TRANSACTIONSERVICE
+          predicates:
+            - Path=/fin/trans/**
           filters:
             - AuthenticationFilter
 eureka:
